@@ -12,4 +12,27 @@ const ANSWER_URL = `${API_URL}answer`;
 const start = await fetch(startURL, { method: 'GET' });
 const startResponse = await start.json();
 console.log(startResponse);
+
+// get clue from API
+// const clue = await fetch(CLUE_URL, { method: 'GET' });
+// const clueResponse = await clue.text();
+// console.log(clueResponse);
+
+async function answer(solution) {
+
+    const request = await fetch(ANSWER_URL, {
+        method: 'POST',
+        body: JSON.stringify({ player: PLAYER_NAME, answer: solution}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const response = await request.json();
+    console.log(`answer: ${solution}`);
+    console.log(response);
+
+}
 //endregion
+
+export { answer };
