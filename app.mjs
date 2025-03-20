@@ -51,6 +51,18 @@ function decodePlanetarySymbols(input) {
     return input.split('').map(symbol => SYMBOLS[symbol]).join(' ')
 }
 
+function decodePoem(input) {
+    let decodedWord = '';
+    for (let letter of input) {
+        if (/[A-Z]/.test(letter)) {
+            decodedWord += letter;
+        }
+    }
+    return decodedWord;
+}
+
 //endregion
 
-export { answer, decodePlanetarySymbols };
+console.log(decodePoem('Still flows the Icy Lethe, Veiling all ’neath Eldritch Rime'));
+
+export { answer, decodePlanetarySymbols, decodePoem };
