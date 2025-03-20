@@ -35,4 +35,22 @@ async function answer(solution) {
 }
 //endregion
 
-export { answer };
+//#region helper functions
+
+function decodePlanetarySymbols(input) {
+    const SYMBOLS = {
+        '☽':'Silver',
+        '☿':'Quicksilver',
+        '♀':'Copper',
+        '☉':'Gold',
+        '♂':'Iron',
+        '♃':'Tin',
+        '♄':'Lead'
+    };
+
+    return input.split('').map(symbol => SYMBOLS[symbol]).join(' ')
+}
+
+//endregion
+
+export { answer, decodePlanetarySymbols };
