@@ -77,6 +77,43 @@ function decodeBookCipher(pageContent, cipher) {
     return decodedPage;
 }
 
+function decodeAlphabetCipher(input) {
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+    const KEY = 'HOPSUMDTLKWIBCNYERGJQXVZFA ';
+    let decodedWord = '';
+    for (let letter of input) {
+        decodedWord += ALPHABET[KEY.indexOf(letter)];
+    }
+    return decodedWord;
+}
+
+function decodeCrossword(crossword, sequence) {
+    const rows = crossword.split('\n')    
+    const columns = [];
+    const solution = {row: null, col: null};
+    
+    for (let col = 0; col < rows.length; col++) {
+        let column = [];
+        for (let row = 0; row < rows.length; row++) {
+            column.push(rows[row].split(' ')[col]);
+        }
+        columns.push(column.join(' '));
+    }
+
+    rows.map((row, index) => {
+        if (row == sequence) {
+            solution.row = index + 1;
+        }
+    });
+    columns.map((col, index) => {
+        if (col == sequence) {
+            solution.col = index + 1;
+        }
+    });
+
+    return { row: solution.row, col: solution.col };
+}
+
 //endregion
 
-export { answer, decodePlanetarySymbols, decodePoem, decodeBookCipher };
+export { answer, decodePlanetarySymbols, decodePoem, decodeBookCipher, decodeAlphabetCipher, decodeCrossword };

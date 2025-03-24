@@ -36,3 +36,32 @@ I could make out some words, like "to obtain access to the ... formula for the f
 
 To figure out the missing crucial words, I changed the string with letters I knew to be incorrect, from words like 'forppla', 'foprth', 'optaii', 'aeeess', 'ieht', 'iippt' and more. After changing letters that were repeated on the index of these words, I could make out the words better:
 'to obtain access to the next vault, input the formula for the fourth element, combine mercury, copper and sulphur over heat add salt and water infuse gold through air'. Entering the symbols corresponding to these symbols was the correct answer - '☿♀🜍🜂🜔🜄☉🜁'. I found the symbols at https://en.wikipedia.org/wiki/Alchemical_symbol
+
+## 4 - The Fourth Challenge
+The next challenge consisted of multiple parts. I decided to check the clue immediately, after seeing how important it was for the previous challenge. 
+
+I. Flavour Text
+Using the decodePoem function on the challenge text gave the string 'HOPSUMDTLKWIBCNYERGJQXVZFA'. It doesn't create any words or clues. I first tried turning each letter of the string to a number corresponding to its index in the alphabet. I ran these numbers through the decodeBookCipher function, but it was all gibberish. However, I later noticed it suspiciously had a 26 character length, and the clue says it's part of an alphabet cipher. I created another decoding function called decodeAlphabetFunction. It compares the letter of the alphabet with that of the key. If I give it the letter H, it will return A, if I give it A, it will return Z. Basically the index of the letter in the alphabet.
+
+II. Substitution
+After running all the strings through the decoder, I got:
+
+GOLD COPPER GOLD GOLD SILVER
+EARTH MERCURY COPPER FIRE AIR
+FIRE EARTH LEAD EARTH SILVER
+IRON GOLD SILVER WATER GOLD
+COPPER FIRE GOLD IRON LEAD
+EARTH COPPER COPPER TIN MERCURY
+
+With symbols, it's:
+☉ ♀ ☉ ☉ ☽
+🜃 ☿ ♀ 🜂 🜁
+🜂 🜃 ♄ 🜃 ☽
+♂ ☉ ☽ 🜄 ☉
+♀ 🜂 ☉ ♂ ♄
+🜃 ♀ ♀ ♃ ☿
+
+III. Crossword
+I created a function to find the sequence in the crossword. It takes two parameters: the pure text of the crossword and the sequence to look for. It uses loops to separate the crossword into rows and columns. The rows are easy to do with the split function, but columns was tricky to do, especially with getting it to be formatted in the same way. Each row and column is turned into a string, and compared with the sequence. It returns the row and column that has the sequence. Passing the crossword in the function returned row 1 and column 17. I first tried Tennessine (atom number 117), then I tried adding them together to get Argon (atom number 18) and it was correct (https://en.wikipedia.org/wiki/Argon)! The API gave me the skeleton key:
+
+4d545252634752344e45426b63445175575664424e6c4a4e57693553556b46625453784e4c4530735453784e4c4530735453784e4c4530735453784e4c453073655378354c486b73655378354c444a64:KtaoGngLJ5zHV0rqX7wFsvEelI4mj9S8DxpiuU1YWCOQkfd|TP3cMBy2bZRN6hA
