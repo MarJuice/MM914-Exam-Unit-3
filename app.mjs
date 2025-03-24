@@ -37,6 +37,7 @@ async function answer(solution) {
 
 //#region helper functions
 
+// Translate planetary symbols to elements
 function decodePlanetarySymbols(input) {
     const SYMBOLS = {
         '☽':'Silver',
@@ -54,52 +55,63 @@ function decodePlanetarySymbols(input) {
         '🜄':'Water',
     };
 
+    // Split the input into array of symbols, print the associated element in new string
     return input.split('').map(symbol => SYMBOLS[symbol]).join(' ');
 }
 
+// Extract capital letters from input
 function decodePoem(input) {
     let decodedWord = '';
+    // Check each letter
     for (let letter of input) {
-        if (/[A-Z]/.test(letter)) {
+        if (/[A-Z]/.test(letter)) { // Nothing but capital letters
             decodedWord += letter;
         }
     }
     return decodedWord;
 }
 
+// Extract word at indexes on page
 function decodeBookCipher(pageContent, cipher) {
     let decodedPage = '';
+    
+    // Separate each number in cipher into array, map each number to corresponding letter on page
     cipher.split(' ').map((letter) => {
         letter = pageContent[letter - 1];
-        decodedPage += letter ? letter : ' ';
+        decodedPage += letter ? letter : ' '; // Add space if there's no number in cipher
     }).join(' ');
    
     return decodedPage;
 }
 
+// Shift alphabet letter with key
 function decodeAlphabetCipher(input) {
-    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
-    const KEY = 'HOPSUMDTLKWIBCNYERGJQXVZFA ';
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '; // Alphabet
+    const KEY = 'HOPSUMDTLKWIBCNYERGJQXVZFA '; // Key
     let decodedWord = '';
-    for (let letter of input) {
-        decodedWord += ALPHABET[KEY.indexOf(letter)];
+
+    // Check each letter
+    for (let letter of input) { 
+        decodedWord += ALPHABET[KEY.indexOf(letter)]; // Add letter from alphabet with index of the key
     }
     return decodedWord;
 }
 
+// Find both instances of the sequence in a crossword
 function decodeCrossword(crossword, sequence) {
-    const rows = crossword.split('\n')    
+    const rows = crossword.split('\n'); // Split rows into array
     const columns = [];
-    const solution = {row: null, col: null};
+    const solution = {row: null, col: null}; // Function needs to return two values, so I'm using an object
     
     for (let col = 0; col < rows.length; col++) {
         let column = [];
         for (let row = 0; row < rows.length; row++) {
-            column.push(rows[row].split(' ')[col]);
+            column.push(rows[row].split(' ')[col]); // Important formatting
         }
         columns.push(column.join(' '));
     }
 
+    // Find the sequence in the rows and columns arrays
     rows.map((row, index) => {
         if (row == sequence) {
             solution.row = index + 1;
@@ -111,7 +123,7 @@ function decodeCrossword(crossword, sequence) {
         }
     });
 
-    return { row: solution.row, col: solution.col };
+    return { row: solution.row, col: solution.col }; 
 }
 
 //endregion
