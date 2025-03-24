@@ -45,10 +45,16 @@ function decodePlanetarySymbols(input) {
         '☉':'Gold',
         '♂':'Iron',
         '♃':'Tin',
-        '♄':'Lead'
+        '♄':'Lead',
+        '🜍':'Sulfur',
+        '🜔':'Salt',
+        '🜁':'Air',
+        '🜃':'Earth',
+        '🜂':'Fire',
+        '🜄':'Water',
     };
 
-    return input.split('').map(symbol => SYMBOLS[symbol]).join(' ')
+    return input.split('').map(symbol => SYMBOLS[symbol]).join(' ');
 }
 
 function decodePoem(input) {
@@ -61,8 +67,16 @@ function decodePoem(input) {
     return decodedWord;
 }
 
+function decodeBookCipher(pageContent, cipher) {
+    let decodedPage = '';
+    cipher.split(' ').map((letter) => {
+        letter = pageContent[letter - 1];
+        decodedPage += letter ? letter : ' ';
+    }).join(' ');
+   
+    return decodedPage;
+}
+
 //endregion
 
-console.log(decodePoem('Still flows the Icy Lethe, Veiling all ’neath Eldritch Rime'));
-
-export { answer, decodePlanetarySymbols, decodePoem };
+export { answer, decodePlanetarySymbols, decodePoem, decodeBookCipher };
